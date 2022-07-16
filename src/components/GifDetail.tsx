@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import GifsContext from '../context/GifsContext'
 import { getGifById } from '../services/getGifs'
-import { Gif as GifType } from '../types'
+import { ContextType, Gif } from '../types'
 
 type Props = {
     params: {
@@ -11,19 +11,19 @@ type Props = {
 }
 
 const Detail = ({ params }: Props) => {
-    const { gifs } = useContext<any>(GifsContext)
-    const [gif, setGif] = useState<any>({})
+    const { gifs } = useContext<ContextType>(GifsContext)
+    const [gif, setGif] = useState<Gif>()
 
     useEffect(() => {
         gifs.length ?
-            setGif(gifs.find(gif => gif.id === params.id)) :    //error de tipo
+            setGif(gifs?.find(gif => gif.id === params.id)) :
             getGifById(params.id).then(data => setGif(data[0]))
     }, [])
 
     return (
         <div>
-            <p>{gif.description}</p>
-            <img src={gif.url} alt={gif.description} />
+            <p>{gif?.description}</p>
+            <img src={gif?.url} alt={gif?.description} />
         </div>
     )
 }

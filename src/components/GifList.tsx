@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import Gif from './Gif'
+import { ContextType } from '../types'
 import { useGifs } from '../hooks/useGifs'
 import GifsContext from '../context/GifsContext'
 import RelatedTerms from '../components/RelatedTerms'
@@ -21,7 +22,7 @@ const observerOptions = {
 const GifList = ({ params }: Props) => {
     // const [isScroll, setIsScroll] = useState(true)
     const { gifs, searchGifs, addGifs, loading, clearGifs } = useGifs()
-    const { lastQuery } = useContext<any>(GifsContext)
+    const { lastQuery } = useContext<ContextType>(GifsContext)
     const targetElement = useRef(null)
     const { isNearTarget, setTarget } = useObserver(observerOptions)
 
