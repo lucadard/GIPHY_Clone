@@ -1,12 +1,10 @@
-import React, { ComponentType, FunctionComponent, useContext, useEffect } from 'react'
-import Masonry from 'react-masonry-component';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import Gif from './Gif'
-import { Gif as GifType } from '../types'
 import { useGifs } from '../hooks/useGifs'
-import useWindowWidth from '../hooks/useWindowWidth'
 import GifsContext from '../context/GifsContext'
+import RelatedTerms from '../components/RelatedTerms'
+import useObserver from '../hooks/useObserver'
 
 type Props = {
     params: {
@@ -14,72 +12,52 @@ type Props = {
     }
 }
 
-const masonryOptions = {
-    fitWidth: true,
-    columnWidth: 350,
-    gutter: 15,
-    itemSelector: ".photo-item",
-};
-
-
-const imagesLoadedOptions = { background: '.my-bg-image-el' }
+const observerOptions = {
+    root: null,
+    rootMargin: '100px',
+    threshold: 0.3
+}
 
 const GifList = ({ params }: Props) => {
-    const { gifs, searchGifs, addGifs } = useGifs()
-    // const windowWidth = useWindowWidth()
+    // const [isScroll, setIsScroll] = useState(true)
+    const { gifs, searchGifs, addGifs, loading, clearGifs } = useGifs()
     const { lastQuery } = useContext<any>(GifsContext)
+    const targetElement = useRef(null)
+    const { isNearTarget, setTarget } = useObserver(observerOptions)
 
     useEffect(() => {
-        console.log(lastQuery)
-        if (params.searchTerm === lastQuery) return
-        else searchGifs(params.searchTerm)
+        setTarget(targetElement)
+        if (decodeURI(params.searchTerm) === decodeURI(lastQuery)) return
+        else clearGifs()
+        searchGifs(params.searchTerm)
     }, [params.searchTerm])
 
-    const childGifs = () => gifs?.map(gif => // error de tipos
-        <li className={`photo-item`} key={gif.id}>
-            <Gif
+    useEffect(() => { isNearTarget && handleLoadMore() }, [isNearTarget])
+
+    const childGifs = () => {
+        return gifs?.map(gif =>
+            <Gif key={gif.id}
                 id={gif.id}
                 url={gif.url}
-                description={gif.description} />
-        </li>
-    )
+                description={gif.description}
+                imageHeight={gif.height}
+                imageWidth={gif.width} />
+        );
+    }
 
-    const handleLoadMore = () => addGifs(params.searchTerm, gifs.length)
+    function handleLoadMore() {
+        addGifs(params.searchTerm, gifs.length)
+    }
 
     return (
-        <InfiniteScroll
-            dataLength={gifs.length} //This is important field to render the next data
-            next={handleLoadMore}
-            hasMore={true}
-            loader={<h4>Loading...</h4>}
-            endMessage={
-                <p style={{ textAlign: 'center' }}>
-                    <b>Yay! You have seen it all</b>
-                </p>
-            }
-        // below props only if you need pull down functionality
-        // refreshFunction={this.refresh}
-        // pullDownToRefresh
-        // pullDownToRefreshThreshold={50}
-        // pullDownToRefreshContent={
-        //     <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
-        // }
-        // releaseToRefreshContent={
-        //     <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
-        // }
-        >
-            <div style={{ width: '90vw' }}>
-                <Masonry // no tengo idea como solucionar este error
-                    className={"photo-list"}
-                    elementType={"ul"}
-                    options={masonryOptions}
-                    disableImagesLoaded={false}
-                    updateOnEachImageLoad={false}
-                >
-                    {childGifs()}
-                </Masonry>
+        <>
+            <RelatedTerms searchTerm={params.searchTerm} type='suggestions' />
+            <div className='gifContainer'>
+                {loading ? <p style={{ textAlign: 'center' }}>loading...</p> : childGifs()}
             </div>
-        </InfiniteScroll >
+            <p ref={targetElement}>si ves esto, no hay mas gif... o algo esta mal</p>
+        </>
+
     )
 }
 export default GifList

@@ -1,9 +1,14 @@
-import React, { useState, createContext } from 'react'
+import React, { useState, createContext, useEffect } from 'react'
 
-import { useGifs } from '../hooks/useGifs'
+import { ContextType } from '../types'
 import { Gif as GifType } from '../types'
 
-const Context = createContext({})
+const Context = createContext<ContextType>({
+    gifs: [],
+    setGifs: () => null,
+    lastQuery: '',
+    setLastQuery: () => null,
+})
 
 type Props = {
     children: any

@@ -12,22 +12,32 @@ form {
   align-items: center;
 }
 
-.photo-list {
-  list-style: none;
-  padding-inline-start: 0;
-  margin: 0 auto;
-  width: 100%;
+.gifContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 414px);
+  grid-auto-rows: 10px;
+  gap: 10px;
+  width: 90%;
+  justify-content: center;
+  margin: auto;
+  min-height: 100vh;
 }
 
-.photo-item {
-  display: flex;
-  width: 350px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
-  margin: 0.5rem 0;
+.gif {
+  background-position: top;
+  background-size: 414px auto;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
-.photo-item img {
+.infinite-scroll-component {
+  overflow: hidden !important;
+  width: 120vw;
+}
+
+.relatedTerms {
   display: flex;
-  width: 100%;
-  /* border: 4px double rgba(0, 0, 0, 0.12); */
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
 }

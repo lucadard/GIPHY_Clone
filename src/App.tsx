@@ -1,8 +1,9 @@
-import { Link, Route } from 'wouter'
+import { Route } from 'wouter'
 
 import './App.css'
 import Logo from './components/Logo'
 import SearchBar from './components/SearchBar'
+import TrendingSearches from './components/RelatedTerms'
 import GifList from './components/GifList'
 import GifDetail from './components/GifDetail'
 import { GifsContextProvider } from './context/GifsContext'
@@ -14,9 +15,7 @@ function App() {
       <SearchBar />
       <GifsContextProvider>
         <Route path="/">
-          <Link to="/search/random">Gifs Random</Link>
-          <Link to="/search/minecraft">Gifs Minecraft</Link>
-          <Link to="/search/amongus">Gifs Among Us</Link>
+          <TrendingSearches type='trending' />
         </Route>
         <Route
           path="/search/:searchTerm"

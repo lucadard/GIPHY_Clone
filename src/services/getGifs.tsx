@@ -6,7 +6,7 @@ const fetchGifs = async (query: string, limit: number, offset: number): Promise<
     const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${query}&limit=${limit}&offset=${offset}`)
     const data = (await res.json()).data
     const retrieved = await data.reduce((acc: number, cur: GifsFromApi[0]) =>
-        cur.images.original.url && acc + 1, 0)
+        cur.images.original.webp && acc + 1, 0)
     console.log(`retrieved ${retrieved} gif(s) from "api.giphy.com" query: '${query}'`);
     return data;
 }
@@ -20,8 +20,10 @@ const mapApiToGifs = (apiGifs: GifsFromApi): Array<Gif> => {
     return apiGifs.map(apiGif => {
         return {
             id: apiGif.id,
-            url: apiGif.images.original.url,
-            description: apiGif.title
+            url: apiGif.images.original.webp,
+            description: apiGif.title,
+            height: apiGif.images.original.height,
+            width: apiGif.images.original.width
         }
     })
 }

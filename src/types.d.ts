@@ -2,6 +2,8 @@ export type Gif = {
     id: string
     url: string
     description: string
+    height: number
+    width: number
 }
 
 export type GifsFromApi = Array<{
@@ -9,12 +11,16 @@ export type GifsFromApi = Array<{
     title: string
     images: {
         original: {
-            url: string
+            webp: string
+            height: number
+            width: number
         }
     }
 }>
 
-declare module "react-responsive-masonry" {
-    function foo(): void;
-    export = foo;
+export type ContextType = {
+    gifs: Array<Gif>
+    setGifs: function
+    lastQuery: string
+    setLastQuery: function
 }
