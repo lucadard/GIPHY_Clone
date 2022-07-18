@@ -21,12 +21,10 @@ const Home = (props: Props) => {
     // const handleClearSearch = () => clearGifs()
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input value={input} onChange={handleInputChange} type="text" name='name' placeholder='Search for a GIF' />
-                <button>Search</button>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <input value={input} onChange={handleInputChange} type="text" name='name' placeholder='Search for a GIF' />
+            <button>🔎</button>
+        </form>
     )
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'wouter'
 
-import getTrends from '../services/getTrendingTerms'
+import getTrendingTerms from '../services/getTrendingTerms'
 import getSuggestions from '../services/getSuggestions'
 
 type Props = {
@@ -14,7 +14,7 @@ const RelatedTerms = ({ searchTerm, type }: Props) => {
 
     useEffect(() => {
         if (type === 'trending')
-            getTrends().then(setRelatedTerms)
+            getTrendingTerms().then(setRelatedTerms)
         else if (type === 'suggestions' && searchTerm)
             getSuggestions(searchTerm).then(data => data.map(item => item.name)).then(setRelatedTerms)
     }, [searchTerm])

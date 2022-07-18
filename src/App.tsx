@@ -1,9 +1,8 @@
 import { Route } from 'wouter'
 
 import './App.css'
-import Logo from './components/Logo'
-import SearchBar from './components/SearchBar'
-import TrendingSearches from './components/RelatedTerms'
+import NavBar from './components/NavBar'
+import Carousel from './components/Carousel'
 import GifList from './components/GifList'
 import GifDetail from './components/GifDetail'
 import { GifsContextProvider } from './context/GifsContext'
@@ -11,18 +10,17 @@ import { GifsContextProvider } from './context/GifsContext'
 function App() {
   return (
     <div className="App">
-      <Logo />
-      <SearchBar />
+      <NavBar />
       <GifsContextProvider>
         <Route path="/">
-          <TrendingSearches type='trending' />
+          <Carousel type='trending' />
         </Route>
         <Route
           path="/search/:searchTerm"
           component={GifList}
         />
         <Route
-          path="/gifs/:id"
+          path="/gifs/:searchTerm/:id"
           component={GifDetail}
         />
       </GifsContextProvider>

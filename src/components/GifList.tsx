@@ -11,6 +11,7 @@ type Props = {
     params: {
         searchTerm: string
     }
+    type?: 'search' | 'detail'
 }
 
 const observerOptions = {
@@ -19,8 +20,7 @@ const observerOptions = {
     threshold: 0.3
 }
 
-const GifList = ({ params }: Props) => {
-    // const [isScroll, setIsScroll] = useState(true)
+const GifList = ({ params, type = 'search' }: Props) => {
     const { gifs, searchGifs, addGifs, loading, clearGifs } = useGifs()
     const { lastQuery } = useContext<ContextType>(GifsContext)
     const targetElement = useRef(null)
@@ -30,7 +30,7 @@ const GifList = ({ params }: Props) => {
         setTarget(targetElement)
         if (decodeURI(params.searchTerm) === decodeURI(lastQuery)) return
         else clearGifs()
-        searchGifs(params.searchTerm)
+        searchGifs(decodeURI(params.searchTerm))
     }, [params.searchTerm])
 
     useEffect(() => { isNearTarget && handleLoadMore() }, [isNearTarget])
@@ -42,7 +42,8 @@ const GifList = ({ params }: Props) => {
                 url={gif.url}
                 description={gif.description}
                 imageHeight={gif.height}
-                imageWidth={gif.width} />
+                imageWidth={gif.width}
+                type='grid' />
         );
     }
 
@@ -51,13 +52,21 @@ const GifList = ({ params }: Props) => {
     }
 
     return (
-        <>
-            <RelatedTerms searchTerm={params.searchTerm} type='suggestions' />
-            <div className='gifContainer'>
-                {loading ? <p style={{ textAlign: 'center' }}>loading...</p> : childGifs()}
+        <div className='searchResults'>
+            <div className='related'>
+                {type === 'search'
+                    ? <h2>{decodeURI(params.searchTerm)}
+                        <span style={{ paddingLeft: '5px' }}>GIFs</span>
+                    </h2>
+                    : <span>Related GIFs</span>
+                }
+            </div>
+            <div className='gifContainer'
+                style={{ gridTemplateColumns: `repeat(${type === 'search' ? 4 : 3}, 248px)` }}>
+                {childGifs()}
             </div>
             <p ref={targetElement}>si ves esto, no hay mas gif... o algo esta mal</p>
-        </>
+        </div>
 
     )
 }
