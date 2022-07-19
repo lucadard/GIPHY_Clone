@@ -23,4 +23,9 @@ export type ContextType = {
     setGifs: function
     lastQuery: string
     setLastQuery: function
+    message: {
+        text: string
+        show: boolean
+    }
+    setMessage: function
 }

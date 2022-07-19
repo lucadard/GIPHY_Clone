@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'wouter'
+import GifsContext from '../context/GifsContext'
 
-import { Gif as GifType } from '../types'
+import { ContextType, Gif as GifType } from '../types'
 
 type Props = {
     id: GifType['id']
@@ -17,6 +18,8 @@ const Gif = ({ id, url, description, imageHeight, imageWidth, type = 'grid' }: P
         backgroundImage: `url(${url})`,
         backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`
     })
+    const { message, setMessage } = useContext<ContextType>(GifsContext)
+
     useEffect(() => {
         type === 'grid'
             ? setStyles({ ...styles, gridRowEnd: `span ${calculateSpan()}` })
@@ -33,12 +36,26 @@ const Gif = ({ id, url, description, imageHeight, imageWidth, type = 'grid' }: P
         return 140 * imageWidth / imageHeight
     }
 
+    function handleCopyToClipboard() {
+        // line below is to copy to user clipboard, it gives errors without using https
+        // navigator.clipboard.writeText(url);
+        if (message.show) return
+        setMessage({ text: 'Link copied to clipboard!', show: true });
+        setTimeout(() => {
+            setMessage({ text: '', show: false });
+        }, 5000)
+    };
+
     return (
-        <Link to={`/gifs/${description}/${id}`}>
-            <div className='gif' style={styles}>
-                <img src={url} alt={description} />
+        <div className='gif' style={styles}>
+            <div className="gifActions">
+                <span onClick={handleCopyToClipboard}>🔗</span>
+                <span>🤍</span>
             </div>
-        </Link>
+            <Link to={`/gifs/${description}/${id}`}>
+                <img src={url} alt={description} />
+            </Link>
+        </div>
     )
 }
 

@@ -4,7 +4,6 @@ import Gif from './Gif'
 import { ContextType } from '../types'
 import { useGifs } from '../hooks/useGifs'
 import GifsContext from '../context/GifsContext'
-import RelatedTerms from '../components/RelatedTerms'
 import useObserver from '../hooks/useObserver'
 
 type Props = {

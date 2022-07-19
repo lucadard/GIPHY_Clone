@@ -8,6 +8,11 @@ const Context = createContext<ContextType>({
     setGifs: () => null,
     lastQuery: '',
     setLastQuery: () => null,
+    message: {
+        text: '',
+        show: false,
+    },
+    setMessage: () => null,
 })
 
 type Props = {
@@ -17,8 +22,9 @@ type Props = {
 export function GifsContextProvider({ children }: Props) {
     const [gifs, setGifs] = useState<Array<GifType>>([])
     const [lastQuery, setLastQuery] = useState('')
+    const [message, setMessage] = useState({ text: '', show: false })
     return (
-        <Context.Provider value={{ gifs, setGifs, lastQuery, setLastQuery }}>
+        <Context.Provider value={{ gifs, setGifs, lastQuery, setLastQuery, message, setMessage }}>
             {children}
         </Context.Provider>
     )
