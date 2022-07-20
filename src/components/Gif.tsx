@@ -38,7 +38,7 @@ const Gif = ({ id, url, description, imageHeight, imageWidth, type = 'grid' }: P
 
     function handleCopyToClipboard() {
         // line below is to copy to user clipboard, it gives errors without using https
-        // navigator.clipboard.writeText(url);
+        navigator.clipboard.writeText(url);
         if (message.show) return
         setMessage({ text: 'Link copied to clipboard!', show: true });
         setTimeout(() => {

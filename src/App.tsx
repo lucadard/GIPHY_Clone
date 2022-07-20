@@ -6,7 +6,9 @@ import Carousel from './components/Carousel'
 import GifList from './components/GifList'
 import GifDetail from './components/GifDetail'
 import { GifsContextProvider } from './context/GifsContext'
+import { CategoriesContextProvider } from './context/CategoriesContext'
 import Message from './components/Message'
+import GifCategories from './components/GifCategories'
 
 
 function App() {
@@ -26,6 +28,11 @@ function App() {
           path="/gifs/:searchTerm/:id"
           component={GifDetail}
         />
+        <CategoriesContextProvider>
+          <Route path="/categories/:subcategory"
+            component={GifCategories}>
+          </Route>
+        </CategoriesContextProvider>
       </GifsContextProvider>
     </div>
   )

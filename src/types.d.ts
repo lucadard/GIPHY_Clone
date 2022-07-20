@@ -29,3 +29,14 @@ export type ContextType = {
     }
     setMessage: function
 }
+
+export type Category = {
+    name: string
+    gif?: { images: { original: { url: string } } }
+    subcategories?: Array<{ name: string }>
+}
+
+export type CategoriesContextType = {
+    categories: Array<Category>
+    setCategories: function
+}
