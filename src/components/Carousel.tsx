@@ -43,7 +43,7 @@ const Carousel = ({ type }: Props) => {
     let scrollProgress = e.target.scrollLeft
     let endScroll = sliderRef.current.scrollWidth - sliderRef.current.clientWidth
     setShowArrows({ left: scrollProgress > 0, right: scrollProgress + 10 < endScroll })
-    console.log(scrollProgress + 10 < endScroll)
+    console.log(scrollProgress > 0, scrollProgress + 10 < endScroll)
   }
 
   return (

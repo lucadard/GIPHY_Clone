@@ -115,6 +115,7 @@ body {
   align-items: center;
   cursor: pointer;
   transition: transform 200ms ease-in-out 100ms;
+  z-index: 5;
 }
 
 .arrow:hover {
@@ -374,7 +375,7 @@ body {
   width: 100%;
   top: calc(100% - 0.5rem);
   background: linear-gradient(90deg, #dd48ba, #a542ed 100%);
-  z-index: 5;
+  z-index: 10;
   transition: opacity 500ms ease-in-out;
 }
 
