@@ -3,7 +3,7 @@ import { useLocation } from 'wouter'
 
 type Props = {}
 
-const Home = (props: Props) => {
+const SearchBar = (props: Props) => {
     const [input, setInput] = useState('')
     const [location, setLocation] = useLocation()
 
@@ -28,4 +28,4 @@ const Home = (props: Props) => {
     )
 }
 
-export default Home
+export default SearchBar

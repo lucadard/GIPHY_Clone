@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react'
 
 import getCategories from '../services/getCategories'
 import CategoryList from '../components/CategoryList'
-import { useLocation } from 'wouter'
 import { CategoriesContextType } from '../types'
 import CategoriesContext from '../context/CategoriesContext'
 

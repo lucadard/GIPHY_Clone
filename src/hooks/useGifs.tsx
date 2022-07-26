@@ -23,7 +23,10 @@ export const useGifs = () => {
         setGifs(gifs.concat(newGifs))
     }
 
-    const clearGifs = () => setGifs([])
+    const clearGifs = () => {
+        setGifs([])
+        setLastQuery('')
+    }
 
     return {
         gifs,

@@ -20,8 +20,8 @@ const observerOptions = {
 }
 
 const GifList = ({ params, type = 'search' }: Props) => {
-    const { gifs, searchGifs, addGifs, loading, clearGifs } = useGifs()
-    const { lastQuery } = useContext<ContextType>(GifsContext)
+    const { gifs, searchGifs, addGifs, clearGifs } = useGifs()
+    const { message, setMessage, lastQuery } = useContext<ContextType>(GifsContext)
     const targetElement = useRef(null)
     const { isNearTarget, setTarget } = useObserver(observerOptions)
 
@@ -42,13 +42,24 @@ const GifList = ({ params, type = 'search' }: Props) => {
                 description={gif.description}
                 imageHeight={gif.height}
                 imageWidth={gif.width}
-                type='grid' />
+                type='grid'
+                handleCopyToClipboard={handleCopyToClipboard} />
         );
     }
 
     function handleLoadMore() {
         addGifs(params.searchTerm, gifs.length)
     }
+
+    function handleCopyToClipboard(url: string) {
+        // line below is to copy to user clipboard, it gives errors without using https
+        navigator.clipboard.writeText(url);
+        if (message.show) return
+        setMessage({ text: 'Link copied to clipboard!', show: true });
+        setTimeout(() => {
+            setMessage({ text: '', show: false });
+        }, 5000)
+    };
 
     return (
         <div className='searchResults'>

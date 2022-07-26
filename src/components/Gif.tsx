@@ -11,45 +11,38 @@ type Props = {
     imageHeight: GifType['height']
     imageWidth: GifType['width']
     type: string
+    handleCopyToClipboard: (url: string) => void
 }
 
-const Gif = ({ id, url, description, imageHeight, imageWidth, type = 'grid' }: Props) => {
+const Gif = ({ id, url, description, imageHeight, imageWidth, type = 'grid', handleCopyToClipboard }: Props) => {
     const [styles, setStyles] = useState<any>({
         backgroundImage: `url(${url})`,
-        backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`
+        backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+        gridRowEnd: type === 'grid' ? `span ${calculateSpan()}` : '',
+        height: type === 'grid' ? '' : '140px',
+        width: type === 'grid' ? '' : `${calculateWidth()}px`
     })
-    const { message, setMessage } = useContext<ContextType>(GifsContext)
 
-    useEffect(() => {
-        type === 'grid'
-            ? setStyles({ ...styles, gridRowEnd: `span ${calculateSpan()}` })
-            : setStyles({ ...styles, height: '140px', width: `${calculateWidth()}px` })
-    }, [])
+    // useEffect(() => {
+    //     type === 'grid'
+    //         ? setStyles({ ...styles, gridRowEnd: `span ${calculateSpan()}` })
+    //         : setStyles({ ...styles, height: '140px', width: `${calculateWidth()}px` })
+    // }, [])
 
     function calculateSpan(): number {
         //calculates new image height based on 414px width and calculates 
-        //how many grid spaces should occupy based on 10px row + 10px gap
-        return Math.ceil(248 * imageHeight / imageWidth / 20)
+        //how many grid spaces should occupy based on 10px row + 15px gap
+        return Math.ceil(248 * imageHeight / imageWidth / 25)
     }
     function calculateWidth(): number {
         //calculates new image width based on 200px height
         return 140 * imageWidth / imageHeight
     }
 
-    function handleCopyToClipboard() {
-        // line below is to copy to user clipboard, it gives errors without using https
-        navigator.clipboard.writeText(url);
-        if (message.show) return
-        setMessage({ text: 'Link copied to clipboard!', show: true });
-        setTimeout(() => {
-            setMessage({ text: '', show: false });
-        }, 5000)
-    };
-
     return (
         <div className='gif' style={styles}>
             <div className="gifActions">
-                <span onClick={handleCopyToClipboard}>🔗</span>
+                <span onClick={() => handleCopyToClipboard(url)}>🔗</span>
                 <span>🤍</span>
             </div>
             <Link to={`/gifs/${description}/${id}`}>
@@ -59,4 +52,4 @@ const Gif = ({ id, url, description, imageHeight, imageWidth, type = 'grid' }: P
     )
 }
 
-export default Gif
+export default React.memo(Gif, (prev, next) => prev.id === next.id)

@@ -14,8 +14,8 @@ import GifCategories from './components/GifCategories'
 function App() {
   return (
     <div className="App">
-      <NavBar />
       <GifsContextProvider>
+      <NavBar />
         <Message />
         <Route path="/">
           <Carousel type='trending' />
