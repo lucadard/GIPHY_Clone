@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import GifsContext from '../context/GifsContext'
 
 import { getTrendingGifs } from '../services/getGifs'
-import { Gif as GifType } from '../types'
+import { ContextType, Gif as GifType } from '../types'
 import Gif from './Gif'
 
 type Props = {
@@ -12,6 +13,7 @@ const CAROUSEL_HEIGHT = 140;
 const SCROLL_JUMP = 500;
 
 const Carousel = ({ type }: Props) => {
+  const { handleCopyToClipboard } = useContext<ContextType>(GifsContext)
   const [gifs, setGifs] = useState<GifType[]>([])
   const [showArrows, setShowArrows] = useState({ left: false, right: true })
   const sliderRef = useRef<any>(null)
@@ -24,7 +26,8 @@ const Carousel = ({ type }: Props) => {
         description={gif.description}
         imageHeight={gif.height}
         imageWidth={gif.width}
-        type='carousel' />
+        type='carousel'
+        handleCopyToClipboard={handleCopyToClipboard} />
     );
   }
 

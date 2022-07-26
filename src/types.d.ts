@@ -28,6 +28,7 @@ export type ContextType = {
         show: boolean
     }
     setMessage: function
+    handleCopyToClipboard: function
 }
 
 export type Category = {

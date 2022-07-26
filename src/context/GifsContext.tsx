@@ -13,6 +13,7 @@ const Context = createContext<ContextType>({
         show: false,
     },
     setMessage: () => null,
+    handleCopyToClipboard: () => null
 })
 
 type Props = {
@@ -23,8 +24,19 @@ export function GifsContextProvider({ children }: Props) {
     const [gifs, setGifs] = useState<Array<GifType>>([])
     const [lastQuery, setLastQuery] = useState('')
     const [message, setMessage] = useState({ text: '', show: false })
+
+    function handleCopyToClipboard(url: string) {
+        // line below is to copy to user clipboard, it gives errors without using https
+        navigator.clipboard.writeText(url);
+        if (message.show) return
+        setMessage({ text: 'Link copied to clipboard!', show: true });
+        setTimeout(() => {
+            setMessage({ text: '', show: false });
+        }, 5000)
+    };
+
     return (
-        <Context.Provider value={{ gifs, setGifs, lastQuery, setLastQuery, message, setMessage }}>
+        <Context.Provider value={{ gifs, setGifs, lastQuery, setLastQuery, message, setMessage, handleCopyToClipboard }}>
             {children}
         </Context.Provider>
     )
