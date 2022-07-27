@@ -1,0 +1,145 @@
+.storiesTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 0.5rem;
+  color: white;
+}
+
+.storiesTitle h3 {
+  margin: 0;
+  font-size: 24px;
+  text-transform: capitalize;
+}
+
+.storiesTitle span {
+  margin-right: 0.5rem;
+}
+.storiesContainer {
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(4, 250px);
+  grid-auto-rows: 300px;
+  gap: 30px 12px;
+}
+
+.story {
+  background: white;
+  position: relative;
+  cursor: pointer;
+}
+
+.story .imgContainer {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.story .dataContainer {
+  position: absolute;
+  color: white;
+  display: flex;
+  height: 90%;
+  width: 90%;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5% 0 0 5%;
+}
+
+.story .dataText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.story .dataText p {
+  font-weight: bold;
+  margin: 0;
+}
+
+.dataText .dataTime {
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+.dataImg {
+  width: 50px;
+  height: 50px;
+  background: white;
+  overflow: hidden;
+}
+
+.dataImg img {
+  width: 100%;
+  transition: transform 200ms ease-in-out;
+}
+
+.story .imgContainer img {
+  height: 150%;
+  transition: transform 200ms ease-in-out;
+}
+
+.story.large .imgContainer img {
+  height: 180%;
+}
+
+.story:hover img {
+  transform: scale(1.15);
+}
+
+.story:hover img {
+  transform: scale(1.15);
+}
+
+.story .cascade1 {
+  width: 100%;
+  height: 3px;
+  background-color: blueviolet;
+  top: 100%;
+  position: absolute;
+}
+
+.story .cascade2 {
+  width: 95%;
+  left: 2.5%;
+  height: 6px;
+  background-color: rgb(131, 80, 179);
+  top: calc(100% + 3px);
+  position: absolute;
+}
+
+.story .cascade3 {
+  width: 90%;
+  left: 5%;
+  height: 6px;
+  background-color: rgb(92, 67, 116);
+  top: calc(100% + 9px);
+  position: absolute;
+}
+
+.story.small {
+  /* grid-span; */
+}
+
+.story.large {
+  grid-column-end: span 2;
+}
+
+.story .gradient {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+  background: linear-gradient(0deg, blueviolet 10%, rgba(0, 0, 0, 0) 40%);
+}
+
+.story:hover .gradient {
+  opacity: 0.8;
+}

@@ -10,11 +10,12 @@ body {
 
 .App {
   display: flex;
+  gap: 2.5rem;
   flex-direction: column;
   align-items: center;
   width: 1040px;
   margin: auto;
-  margin-bottom: 1rem;
+  margin-bottom: 5rem;
 }
 
 .searchResults,
@@ -78,6 +79,10 @@ body {
   text-transform: capitalize;
 }
 
+.carouselTitle span {
+  margin-right: 0.5rem;
+}
+
 .carouselContainer {
   position: relative;
   display: flex;
@@ -92,6 +97,7 @@ body {
 .slider {
   width: 100%;
   white-space: nowrap;
+  overflow: hidden;
   overflow-x: scroll;
   scroll-behavior: smooth;
   scrollbar-width: none;

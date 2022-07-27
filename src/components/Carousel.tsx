@@ -53,7 +53,7 @@ const Carousel = ({ type }: Props) => {
     <div className='carousel'>
       <div className='carouselTitle' >
         <h3><span>📈</span>{type}</h3>
-        <span style={{ cursor: 'pointer' }}>All the GIFs {'>'}</span>
+        {/* <span style={{ cursor: 'pointer' }}>All the GIFs {'>'}</span> */}
       </div>
       <div
         className="carouselContainer"
