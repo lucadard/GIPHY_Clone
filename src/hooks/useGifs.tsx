@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 
 import { ContextType } from '../types'
-import getGifs from '../services/getGifs'
+import getGifs, { getRelatedGifs } from '../services/getGifs'
 import GifsContext from '../context/GifsContext'
 
 const SEARCH_LIMIT = 25;
@@ -10,17 +10,25 @@ export const useGifs = () => {
     const [loading, setLoading] = useState(false)
     const { gifs, setGifs, setLastQuery } = useContext<ContextType>(GifsContext)
 
-    const searchGifs = async (input: string) => {
+    const searchGifs = async (input: { searchTerm: string, id: string }, type: string) => {
         setLoading(true)
-        const gifSearch = await getGifs(input, SEARCH_LIMIT)
+        let gifSearch
+        if (type === 'search') {
+            gifSearch = await getGifs(input.searchTerm, SEARCH_LIMIT)
+            setLastQuery(input.searchTerm)
+        }
+        else gifSearch = await getRelatedGifs(input.id, SEARCH_LIMIT)
         setGifs(gifSearch)
-        setLastQuery(input)
         setLoading(false)
     }
 
-    const addGifs = async (input: string, offset: number) => {
-        const newGifs = await getGifs(input, SEARCH_LIMIT, offset)
+    const addGifs = async (input: { searchTerm: string, id: string }, offset: number, type: string) => {
+        setLoading(true)
+        let newGifs
+        if (type === 'search') newGifs = await getGifs(input.searchTerm, SEARCH_LIMIT, offset)
+        else newGifs = await getRelatedGifs(input.id, SEARCH_LIMIT, offset)
         setGifs(gifs.concat(newGifs))
+        setLoading(false)
     }
 
     const clearGifs = () => {
@@ -33,7 +41,6 @@ export const useGifs = () => {
         searchGifs,
         addGifs,
         loading,
-        // fetched,
         clearGifs
     }
 }

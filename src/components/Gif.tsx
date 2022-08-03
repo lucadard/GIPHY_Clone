@@ -11,10 +11,14 @@ type Props = {
     imageHeight: GifType['height']
     imageWidth: GifType['width']
     type: string
+    user?: GifType['user']
+    tags: GifType['tags']
     handleCopyToClipboard: (url: string) => void
 }
 
-const Gif = ({ id, url, description, imageHeight, imageWidth, type = 'grid', handleCopyToClipboard }: Props) => {
+const Gif = ({ id, url, description, imageHeight, imageWidth, type = 'grid', handleCopyToClipboard, user, tags }: Props) => {
+    console.log(tags);
+
     const [styles, setStyles] = useState<any>({
         backgroundImage: `url(${url})`,
         backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
@@ -41,9 +45,20 @@ const Gif = ({ id, url, description, imageHeight, imageWidth, type = 'grid', han
 
     return (
         <div className='gif' style={styles}>
-            <div className="gifActions">
-                <span onClick={() => handleCopyToClipboard(url)}>🔗</span>
-                <span>🤍</span>
+            <div className="gifHover">
+                <div className="gifActions">
+                    <span onClick={() => handleCopyToClipboard(url)}>🔗</span>
+                    <span>🤍</span>
+                </div>
+
+                {user ?
+                    <div className="gifUser">
+                        <div className="photo">
+                            <img src={user?.avatar_url} alt={`${user?.name} photo`} />
+                        </div>
+                        {type !== 'carousel' && <div className="username"><span>{user?.name}</span></div>}
+                    </div>
+                    : type !== 'carousel' && <div className='gifTags'><p>{tags.map(tag => `#${tag} `)}</p></div>}
             </div>
             <Link to={`/gifs/${description}/${id}`}>
                 <img src={url} alt={description} />

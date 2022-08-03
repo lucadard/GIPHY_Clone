@@ -5,9 +5,12 @@ import { ContextType } from '../types'
 import GifsContext from '../context/GifsContext'
 import { useGifs } from '../hooks/useGifs'
 import useObserver from '../hooks/useObserver'
+import LoadingSpinner from './LoadingSpinner'
+import { getRelatedGifs } from '../services/getGifs'
 
 type Props = {
     params: {
+        id: string
         searchTerm: string
     }
     type?: 'search' | 'detail'
@@ -20,16 +23,16 @@ const observerOptions = {
 }
 
 const GifList = ({ params, type = 'search' }: Props) => {
-    const { gifs, searchGifs, addGifs, clearGifs } = useGifs()
-    const { message, setMessage, lastQuery, handleCopyToClipboard } = useContext<ContextType>(GifsContext)
+    const { gifs, searchGifs, addGifs, clearGifs, loading } = useGifs()
+    const { lastQuery, handleCopyToClipboard } = useContext<ContextType>(GifsContext)
     const targetElement = useRef(null)
     const { isNearTarget, setTarget } = useObserver(observerOptions)
 
     useEffect(() => {
         setTarget(targetElement)
-        if (decodeURI(params.searchTerm) === decodeURI(lastQuery)) return
+        if (decodeURI(params.searchTerm) === decodeURI(lastQuery) && type === 'search') return
         else clearGifs()
-        searchGifs(decodeURI(params.searchTerm))
+        searchGifs(params, type)
     }, [params.searchTerm])
 
     useEffect(() => { isNearTarget && handleLoadMore() }, [isNearTarget])
@@ -42,24 +45,16 @@ const GifList = ({ params, type = 'search' }: Props) => {
                 description={gif.description}
                 imageHeight={gif.height}
                 imageWidth={gif.width}
+                user={gif.user}
                 type='grid'
+                tags={gif.tags}
                 handleCopyToClipboard={handleCopyToClipboard} />
         );
     }
 
     function handleLoadMore() {
-        addGifs(params.searchTerm, gifs.length)
+        addGifs(params, gifs.length, type)
     }
-
-    // function handleCopyToClipboard(url: string) {
-    //     // line below is to copy to user clipboard, it gives errors without using https
-    //     navigator.clipboard.writeText(url);
-    //     if (message.show) return
-    //     setMessage({ text: 'Link copied to clipboard!', show: true });
-    //     setTimeout(() => {
-    //         setMessage({ text: '', show: false });
-    //     }, 5000)
-    // };
 
     return (
         <div className='searchResults'>
@@ -75,7 +70,8 @@ const GifList = ({ params, type = 'search' }: Props) => {
                 style={{ gridTemplateColumns: `repeat(${type === 'search' ? 4 : 3}, 248px)` }}>
                 {childGifs()}
             </div>
-            <p ref={targetElement}>si ves esto, no hay mas gif... o algo esta mal</p>
+            <div style={{ alignSelf: 'center', marginTop: '3rem' }}>{loading && <LoadingSpinner />}</div>
+            {<div ref={targetElement}></div>}
         </div>
 
     )

@@ -157,29 +157,75 @@ body {
   color: transparent;
 }
 
-.gif:hover > .gifActions {
+.gif:hover > .gifHover {
   opacity: 1;
 }
 
-.gif .gifActions {
+.gif .gifHover {
   display: flex;
-  gap: 0.8rem;
+  flex-direction: column;
+  justify-content: space-between;
   position: absolute;
   top: 0;
   right: 0;
-  margin: 0.5rem 0.5rem 0 0;
+  left: 0;
+  bottom: 0;
   transition: opacity 200ms ease-in-out;
   opacity: 0;
   user-select: none;
+  pointer-events: none;
+  padding: 0.6rem;
+}
+
+.gif .gifHover .gifActions {
+  align-self: flex-end;
+  display: flex;
+  gap: 0.8rem;
+  pointer-events: all;
 }
 
 .gifActions span {
   cursor: pointer;
   transition: transform 150ms ease-in-out;
+  font-size: 18px;
 }
 
 .gifActions span:hover {
   transform: scale(1.2);
+}
+.gifHover .gifUser {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: all;
+}
+
+.gifUser span {
+  color: white;
+  font-size: 16px;
+}
+.gifHover .gifUser .photo {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.gifHover .gifUser .photo img {
+  height: 100%;
+}
+
+.gifTags p {
+  margin: 0;
+  width: 3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: white;
+  width: 100%;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .relatedTerms {
@@ -189,7 +235,6 @@ body {
   gap: 0 0.5rem;
 }
 
-.gifDetails,
 .gifCategories {
   display: grid;
   width: 100%;
@@ -198,16 +243,6 @@ body {
   color: white;
   font-weight: bold;
   color: #a6a6a6;
-}
-.description {
-  font-size: 14px;
-  margin: 0;
-  height: 1.7rem;
-}
-
-.gifDetails .gifPreview {
-  width: 500px;
-  margin-bottom: 1rem;
 }
 
 .message {

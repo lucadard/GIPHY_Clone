@@ -21,7 +21,7 @@ const Story = ({ url, title, userPhotoUrl, time, imageWidth, index }: Props) => 
                 || index === 29
                 ? 'large'
                 : 'small'}`}>
-            <div className="imgContainer">
+            <div className="imgContainer" style={{ backgroundColor }}>
                 <img src={url} alt={`${title} story`} />
             </div>
             <div className="dataContainer">
@@ -37,7 +37,7 @@ const Story = ({ url, title, userPhotoUrl, time, imageWidth, index }: Props) => 
             <div className="cascade1" style={{ backgroundColor }}></div>
             <div className="cascade2" style={{ backgroundColor, opacity: '.8' }}></div>
             <div className="cascade3" style={{ backgroundColor, opacity: '.6' }}></div>
-        </div>
+        </div >
     )
 }
 

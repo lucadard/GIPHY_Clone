@@ -27,6 +27,8 @@ const Carousel = ({ type }: Props) => {
         imageHeight={gif.height}
         imageWidth={gif.width}
         type='carousel'
+        user={gif.user}
+        tags={gif.tags}
         handleCopyToClipboard={handleCopyToClipboard} />
     );
   }
