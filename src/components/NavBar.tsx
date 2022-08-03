@@ -76,9 +76,11 @@ const NavBar = (props: Props) => {
                     <ul>
                         {Object.keys(categories).map(index =>
                             <li key={categories[index].name}>
-                                <span>
-                                    {categories[index].name}
-                                </span>
+                                <a href={`/categories/${categories[index].name}`}>
+                                    <span>
+                                        {categories[index].name}
+                                    </span>
+                                </a>
                             </li>)}
                     </ul>
                 </div>

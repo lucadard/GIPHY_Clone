@@ -20,7 +20,7 @@ const Carousel = ({ type }: Props) => {
 
   const childGifs = () => {
     return gifs.map(gif =>
-      <Gif key={gif.id}
+      <Gif key={gif.id + Math.ceil(Math.random() * 10)}
         id={gif.id}
         url={gif.url}
         description={gif.description}
@@ -29,6 +29,7 @@ const Carousel = ({ type }: Props) => {
         type='carousel'
         user={gif.user}
         tags={gif.tags}
+        source={gif.source}
         handleCopyToClipboard={handleCopyToClipboard} />
     );
   }

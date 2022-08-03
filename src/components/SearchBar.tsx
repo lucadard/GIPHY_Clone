@@ -14,7 +14,7 @@ const SearchBar = (props: Props) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (!input) return
-        setInput('')
+        // setInput('')
         setLocation(`/search/${input}`);
     }
 

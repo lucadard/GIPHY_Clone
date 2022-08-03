@@ -39,7 +39,7 @@ const GifList = ({ params, type = 'search' }: Props) => {
 
     const childGifs = () => {
         return gifs?.map(gif =>
-            <Gif key={gif.id}
+            <Gif key={gif.id + Math.ceil(Math.random() * 10)}
                 id={gif.id}
                 url={gif.url}
                 description={gif.description}
@@ -48,6 +48,7 @@ const GifList = ({ params, type = 'search' }: Props) => {
                 user={gif.user}
                 type='grid'
                 tags={gif.tags}
+                source={gif.source}
                 handleCopyToClipboard={handleCopyToClipboard} />
         );
     }

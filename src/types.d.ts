@@ -5,6 +5,7 @@ export type Gif = {
     height: number
     width: number
     tags: string[]
+    source: string
     user?: {
         name: string
         tag: string
@@ -23,6 +24,7 @@ export type GifsFromApi = Array<{
     id: string
     title: string
     tags: string[]
+    source: string
     images: {
         original: {
             webp: string

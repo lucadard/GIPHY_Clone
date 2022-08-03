@@ -13,12 +13,11 @@ type Props = {
     type: string
     user?: GifType['user']
     tags: GifType['tags']
+    source: GifType['source']
     handleCopyToClipboard: (url: string) => void
 }
 
 const Gif = ({ id, url, description, imageHeight, imageWidth, type = 'grid', handleCopyToClipboard, user, tags }: Props) => {
-    console.log(tags);
-
     const [styles, setStyles] = useState<any>({
         backgroundImage: `url(${url})`,
         backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,

@@ -18,7 +18,7 @@ a {
   grid-template-columns: 500px auto;
   gap: 2.5rem;
   min-height: 250px;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
 
 .description {
@@ -113,6 +113,13 @@ a {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  overflow: hidden;
+}
+
+.userInfo a {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .userInfo div {
@@ -207,4 +214,30 @@ a {
   font-size: 14px;
   color: #a6a6a6;
   font-weight: 400;
+}
+
+.tagList {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.detailTag,
+.ellipsisTag {
+  background-color: #2e2e2e;
+  border-radius: 3rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.detailTag span,
+.ellipsisTag span {
+  color: white;
+  font-size: 15px;
+  font-style: italic;
+}
+
+.detailTag:hover span,
+.ellipsisTag:hover span {
+  color: lightseagreen;
 }

@@ -1,5 +1,6 @@
 import { Gif, GifsFromApi } from "../types"
 
+// const API_KEY = '1pEskHbVQ22S4OFAPl78nMC7QF46bU8c'
 const API_KEY = 'Gc7131jiJuvI7IdN0HZ1D7nh0ow5BU6g'
 
 const fetchGifs = async (query: string, limit: number, offset: number): Promise<GifsFromApi> => {
@@ -32,7 +33,8 @@ const mapApiToGifs = (apiGifs: GifsFromApi): Array<Gif> => {
             description: apiGif.title,
             height: apiGif.images.original.height,
             width: apiGif.images.original.width,
-            tags: apiGif.tags
+            tags: apiGif.tags,
+            source: apiGif.source
         }
         return apiGif.user ? {
             ...obj, user: {
