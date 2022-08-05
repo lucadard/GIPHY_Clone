@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import getGifs from '../services/getGifs'
-import { Gif as GifType } from '../types'
 
-import './Stories.css'
+import { Gif as GifType } from '../types'
+import getGifs from '../services/getGifs'
 import Story from './Story'
+
+import '../styles/Stories.css'
 
 type Props = {}
 

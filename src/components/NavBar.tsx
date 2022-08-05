@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'wouter'
 
-import './NavBar.css'
 import getCategories from '../services/getCategories'
 import SearchBar from './SearchBar'
 import { useGifs } from '../hooks/useGifs'
+
+import '../styles/NavBar.css'
 
 type Props = {}
 

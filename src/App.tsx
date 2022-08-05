@@ -1,6 +1,6 @@
 import { Route } from 'wouter'
 
-import './App.css'
+import './styles/App.css'
 
 import NavBar from './components/NavBar'
 import Carousel from './components/Carousel'

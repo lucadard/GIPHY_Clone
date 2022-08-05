@@ -5,8 +5,7 @@ import { getGifById } from '../services/getGifs'
 import { ContextType, Gif } from '../types'
 import GifList from '../components/GifList'
 
-import './GifDetail.css'
-import { useGifs } from '../hooks/useGifs'
+import '../styles/GifDetail.css'
 
 type Props = {
     params: {

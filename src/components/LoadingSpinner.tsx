@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './LoadingSpinner.css'
+import '../styles/LoadingSpinner.css'
 
 type Props = {}
 

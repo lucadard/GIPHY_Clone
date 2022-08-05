@@ -6,7 +6,6 @@ import GifsContext from '../context/GifsContext'
 import { useGifs } from '../hooks/useGifs'
 import useObserver from '../hooks/useObserver'
 import LoadingSpinner from './LoadingSpinner'
-import { getRelatedGifs } from '../services/getGifs'
 
 type Props = {
     params: {
