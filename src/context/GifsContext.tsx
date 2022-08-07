@@ -1,6 +1,7 @@
 import React, { useState, createContext, useEffect } from 'react'
+import { useLocation } from 'wouter'
 
-import { ContextType } from '../types'
+import { ContextType, Gif } from '../types'
 import { Gif as GifType } from '../types'
 
 const Context = createContext<ContextType>({
@@ -21,7 +22,7 @@ type Props = {
 }
 
 export function GifsContextProvider({ children }: Props) {
-    const [gifs, setGifs] = useState<Array<GifType>>([])
+    const [gifs, setGifs] = useState<ContextType['gifs']>([])
     const [lastQuery, setLastQuery] = useState('')
     const [message, setMessage] = useState({ text: '', show: false })
 

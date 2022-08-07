@@ -45,7 +45,7 @@ export type GifsFromApi = Array<{
 }>
 
 export type ContextType = {
-    gifs: Array<Gif>
+    gifs: Gif[]
     setGifs: function
     lastQuery: string
     setLastQuery: function
@@ -55,6 +55,16 @@ export type ContextType = {
     }
     setMessage: function
     handleCopyToClipboard: function
+}
+
+export type HistoryContextType = {
+    gifHistory: {
+        prevGifs: Gif[]
+        nextGifs: Gif[]
+    }
+    handleSetNewGif: function
+    toPreviousGif: function
+    toNextGif: function
 }
 
 export type Category = {

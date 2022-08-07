@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 
 import GifsContext from '../context/GifsContext'
-import { getGifById } from '../services/getGifs'
-import { ContextType, Gif } from '../types'
+import HistoryContext from '../context/HistoryContext'
+import { getGifById, getRelatedGifs } from '../services/getGifs'
+import { ContextType, Gif, HistoryContextType } from '../types'
 import GifList from '../components/GifList'
 
 import '../styles/GifDetail.css'
@@ -16,6 +17,7 @@ type Props = {
 
 const Detail = ({ params }: Props) => {
     const { gifs } = useContext<ContextType>(GifsContext)
+    const { gifHistory, toPreviousGif, toNextGif } = useContext<HistoryContextType>(HistoryContext)
     const [gif, setGif] = useState<Gif>()
     const [showAllTags, setShowAllTags] = useState(false)
     const [fakeViewCount] = useState(Math.ceil(Math.random() * 2000000))
@@ -29,8 +31,6 @@ const Detail = ({ params }: Props) => {
         setShowAllTags(false)
         window.scrollTo(0, 0)
     }, [params.id])
-
-    // useEffect(() => { setShowAllTags(false) }, [gif])
 
     const handleShowAllTags = () => setShowAllTags(!showAllTags)
 
@@ -55,12 +55,16 @@ const Detail = ({ params }: Props) => {
                                     {gif.user.socials_url.facebook && <a target="_blank" href={gif.user.socials_url.facebook}>🅿️</a>}
                                     {gif.user.socials_url.instagram && <a target="_blank" href={gif?.user.socials_url.instagram}>📷</a>}
                                     {gif.user.socials_url.twitter && <a target="_blank" href={gif?.user.socials_url.twitter}>🦢</a>}
-                                </div></div>}
-                    </>}
-                {
-                    gif?.source && <div className='source'><p className='title'>Source</p>
+                                </div>
+                            </div>
+                        }
+                    </>
+                }
+                {gif?.source &&
+                    <div className='source'><p className='title'>Source</p>
                         <div className='content'>
-                            <a href={gif?.source} target="_blank"><span>⤴️</span>{gif?.source}</a></div>
+                            <a href={gif?.source} target="_blank"><span>⤴️</span>{gif?.source}</a>
+                        </div>
                     </div>
                 }
             </div >
@@ -72,8 +76,16 @@ const Detail = ({ params }: Props) => {
                     </div>
                     <div className="gifNavigation">
                         <div className="navigator">
-                            <div className='previous'>{'<'}</div>
-                            <div className='next active'>{'>'}</div>
+                            <div className={`previous ${gifHistory.prevGifs.length ? 'active' : ''}`}
+                                onClick={() => toPreviousGif()}
+                            >
+                                {'<'}
+                            </div>
+                            <div className='next active'
+                                onClick={() => toNextGif(gif?.id)}
+                            >
+                                {'>'}
+                            </div>
                         </div>
                         <div className='actions'>
                             <div><span>🤍</span><p>Favorite</p></div>
@@ -89,14 +101,15 @@ const Detail = ({ params }: Props) => {
                     {gif?.tags.map((tag, index) => {
                         if (!showAllTags && index > 4) return
                         else return <div className='detailTag' key={tag}><span>#{tag}</span></div>
+                    })
                     }
-                    )}
-                    {gif?.tags && gif?.tags.length > 4
-                        && <div className="ellipsisTag" onClick={handleShowAllTags}>
+                    {gif?.tags && gif?.tags.length > 4 &&
+                        <div className="ellipsisTag" onClick={handleShowAllTags}>
                             <span>...</span>
-                        </div>}
+                        </div>
+                    }
                 </div>
-                <GifList params={params} type='detail' />
+                <GifList params={params} type={'detail'} />
             </div>
         </div >
     )

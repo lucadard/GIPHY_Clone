@@ -12,6 +12,7 @@ import GifCategories from './components/GifCategories'
 
 import { GifsContextProvider } from './context/GifsContext'
 import { CategoriesContextProvider } from './context/CategoriesContext'
+import { HistoryContextProvider } from './context/HistoryContext'
 
 
 function App() {
@@ -20,18 +21,20 @@ function App() {
       <GifsContextProvider>
         <NavBar />
         <Message />
-        <Route path="/">
-          <Carousel type='trending' />
-          <Stories />
-        </Route>
-        <Route
-          path="/search/:searchTerm"
-          component={GifList}
-        />
-        <Route
-          path="/gifs/:searchTerm/:id"
-          component={GifDetail}
-        />
+        <HistoryContextProvider>
+          <Route path="/">
+            <Carousel type='trending' />
+            <Stories />
+          </Route>
+          <Route
+            path="/search/:searchTerm"
+            component={GifList}
+          />
+          <Route
+            path="/gifs/:searchTerm/:id"
+            component={GifDetail}
+          />
+        </HistoryContextProvider>
         <CategoriesContextProvider>
           <Route path="/categories/:subcategory"
             component={GifCategories}>

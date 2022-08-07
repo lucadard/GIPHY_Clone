@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'wouter'
+
+import HistoryContext from '../context/HistoryContext'
 import GifsContext from '../context/GifsContext'
 
-import { ContextType, Gif as GifType } from '../types'
+import { ContextType, HistoryContextType, Gif as GifType } from '../types'
 
 type Props = {
     id: GifType['id']
@@ -17,50 +19,48 @@ type Props = {
     handleCopyToClipboard: (url: string) => void
 }
 
-const Gif = ({ id, url, description, imageHeight, imageWidth, type = 'grid', handleCopyToClipboard, user, tags }: Props) => {
+const Gif = (props: Props) => {
+    const { handleSetNewGif } = useContext<HistoryContextType>(HistoryContext)
+    const { handleCopyToClipboard } = useContext<ContextType>(GifsContext)
     const [styles, setStyles] = useState<any>({
-        backgroundImage: `url(${url})`,
+        backgroundImage: `url(${props.url})`,
         backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
-        gridRowEnd: type === 'grid' ? `span ${calculateSpan()}` : '',
-        height: type === 'grid' ? '' : '140px',
-        width: type === 'grid' ? '' : `${calculateWidth()}px`
+        gridRowEnd: props.type === 'grid' ? `span ${calculateSpan()}` : '',
+        height: props.type === 'grid' ? '' : '140px',
+        width: props.type === 'grid' ? '' : `${calculateWidth()}px`
     })
-
-    // useEffect(() => {
-    //     type === 'grid'
-    //         ? setStyles({ ...styles, gridRowEnd: `span ${calculateSpan()}` })
-    //         : setStyles({ ...styles, height: '140px', width: `${calculateWidth()}px` })
-    // }, [])
 
     function calculateSpan(): number {
         //calculates new image height based on 414px width and calculates 
         //how many grid spaces should occupy based on 10px row + 15px gap
-        return Math.ceil(248 * imageHeight / imageWidth / 25)
+        return Math.ceil(248 * props.imageHeight / props.imageWidth / 25)
     }
     function calculateWidth(): number {
         //calculates new image width based on 200px height
-        return 140 * imageWidth / imageHeight
+        return 140 * props.imageWidth / props.imageHeight
     }
 
     return (
         <div className='gif' style={styles}>
             <div className="gifHover">
                 <div className="gifActions">
-                    <span onClick={() => handleCopyToClipboard(url)}>🔗</span>
+                    <span onClick={() => handleCopyToClipboard(props.url)}>🔗</span>
                     <span>🤍</span>
                 </div>
 
-                {user ?
+                {props.user ?
                     <div className="gifUser">
                         <div className="photo">
-                            <img src={user?.avatar_url} alt={`${user?.name} photo`} />
+                            <img src={props.user?.avatar_url} alt={`${props.user?.name} photo`} />
                         </div>
-                        {type !== 'carousel' && <div className="username"><span>{user?.name}</span></div>}
+                        {props.type !== 'carousel' && <div className="username"><span>{props.user?.name}</span></div>}
                     </div>
-                    : type !== 'carousel' && <div className='gifTags'><p>{tags.map(tag => `#${tag} `)}</p></div>}
+                    : props.type !== 'carousel' && <div className='gifTags'><p>{props.tags.map(tag => `#${tag} `)}</p></div>}
             </div>
-            <Link to={`/gifs/${description}/${id}`}>
-                <img src={url} alt={description} />
+            <Link to={`/gifs/${props.description}/${props.id}`}
+                onClick={() => handleSetNewGif(props)}
+            >
+                <img src={props.url} alt={props.description} />
             </Link>
         </div>
     )

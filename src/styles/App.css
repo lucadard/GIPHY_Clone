@@ -55,6 +55,8 @@ body {
 .gifContainer,
 .categoryContainer {
   display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, 248px);
   grid-auto-rows: 10px;
   gap: 15px;
   justify-content: center;

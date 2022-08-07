@@ -38,7 +38,7 @@ const GifList = ({ params, type = 'search' }: Props) => {
 
     const childGifs = () => {
         return gifs?.map(gif =>
-            <Gif key={gif.id + Math.ceil(Math.random() * 10)}
+            <Gif key={gif.id + Math.random() * 10}
                 id={gif.id}
                 url={gif.url}
                 description={gif.description}
@@ -48,7 +48,8 @@ const GifList = ({ params, type = 'search' }: Props) => {
                 type='grid'
                 tags={gif.tags}
                 source={gif.source}
-                handleCopyToClipboard={handleCopyToClipboard} />
+                handleCopyToClipboard={handleCopyToClipboard}
+            />
         );
     }
 
@@ -66,8 +67,7 @@ const GifList = ({ params, type = 'search' }: Props) => {
                     : <span>Related GIFs</span>
                 }
             </div>
-            <div className='gifContainer'
-                style={{ gridTemplateColumns: `repeat(${type === 'search' ? 4 : 3}, 248px)` }}>
+            <div className='gifContainer'>
                 {childGifs()}
             </div>
             <div style={{ alignSelf: 'center', marginTop: '3rem' }}>{loading && <LoadingSpinner />}</div>
