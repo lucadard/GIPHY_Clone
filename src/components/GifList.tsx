@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import Gif from './Gif'
-import { ContextType } from '../types'
+import LoadingSpinner from './LoadingSpinner'
 import GifsContext from '../context/GifsContext'
 import { useGifs } from '../hooks/useGifs'
 import useObserver from '../hooks/useObserver'
-import LoadingSpinner from './LoadingSpinner'
+import { ContextType } from '../types'
 
 type Props = {
     params: {

@@ -57,7 +57,7 @@ const Gif = (props: Props) => {
                     </div>
                     : props.type !== 'carousel' && <div className='gifTags'><p>{props.tags.map(tag => `#${tag} `)}</p></div>}
             </div>
-            <Link to={`/gifs/${props.description}/${props.id}`}
+            <Link to={`/gifs/${props.id}`}
                 onClick={() => handleSetNewGif(props)}
             >
                 <img src={props.url} alt={props.description} />

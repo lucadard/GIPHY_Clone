@@ -72,7 +72,7 @@ const Detail = ({ params }: Props) => {
                 <div className='gifInfo'>
                     <div className="gifPreview">
                         <p className='description'>{gif?.description}</p>
-                        <img className='image' src={gif?.url} alt={gif?.description} />
+                        <img className='image' src={gif?.url} alt={gif?.description} key={gif?.description} />
                     </div>
                     <div className="gifNavigation">
                         <div className="navigator">

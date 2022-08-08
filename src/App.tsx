@@ -31,7 +31,7 @@ function App() {
             component={GifList}
           />
           <Route
-            path="/gifs/:searchTerm/:id"
+            path="/gifs/:id"
             component={GifDetail}
           />
         </HistoryContextProvider>

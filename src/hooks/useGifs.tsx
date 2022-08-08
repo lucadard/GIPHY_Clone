@@ -20,6 +20,8 @@ export const useGifs = () => {
         else gifSearch = await getRelatedGifs(input.id, SEARCH_LIMIT)
         setGifs(gifSearch)
         setLoading(false)
+
+        console.log(1)
     }
 
     const addGifs = async (input: { searchTerm: string, id: string }, offset: number, type: string) => {

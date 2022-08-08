@@ -88,7 +88,7 @@ export function HistoryContextProvider({ children }: Props) {
         if (state.currentGif) {
             let newCurrentGif = state.gifHistory.prevGifs[0]
             dispatch({ type: ACTION.SET_GIF_TO_NEXT, payload: state.currentGif })
-            setLocation(`/gifs/${newCurrentGif.description}/${newCurrentGif.id}`)
+            setLocation(`/gifs/${newCurrentGif.id}`)
             dispatch({ type: ACTION.SET_CURRENT_GIF, payload: newCurrentGif })
         }
     }
@@ -99,7 +99,7 @@ export function HistoryContextProvider({ children }: Props) {
         if (state.currentGif) {
             let newCurrentGif = state.gifHistory.nextGifs[0] || randomCurrentGif
             dispatch({ type: ACTION.SET_GIF_TO_PREV, payload: state.currentGif })
-            setLocation(`/gifs/${newCurrentGif.description}/${newCurrentGif.id}`)
+            setLocation(`/gifs/${newCurrentGif.id}`)
             dispatch({ type: ACTION.SET_CURRENT_GIF, payload: newCurrentGif })
         }
     }
