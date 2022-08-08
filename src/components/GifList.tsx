@@ -24,8 +24,8 @@ const observerOptions = {
 const GifList = ({ params, type = 'search' }: Props) => {
     const { gifs, searchGifs, addGifs, clearGifs, loading } = useGifs()
     const { lastQuery, handleCopyToClipboard } = useContext<ContextType>(GifsContext)
-    const targetElement = useRef(null)
     const { isNearTarget, setTarget } = useObserver(observerOptions)
+    const targetElement = useRef(null)
 
     useEffect(() => {
         setTarget(targetElement)

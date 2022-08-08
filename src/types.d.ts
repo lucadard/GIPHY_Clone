@@ -58,13 +58,16 @@ export type ContextType = {
 }
 
 export type HistoryContextType = {
-    gifHistory: {
-        prevGifs: Gif[]
-        nextGifs: Gif[]
+    state: {
+        currentGif: Gif | null
+        gifHistory: {
+            prevGifs: Gif[]
+            nextGifs: Gif[]
+        }
     }
-    handleSetNewGif: function
     toPreviousGif: function
     toNextGif: function
+    handleSetNewGif: function
 }
 
 export type Category = {

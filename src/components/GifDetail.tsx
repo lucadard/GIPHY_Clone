@@ -17,7 +17,7 @@ type Props = {
 
 const Detail = ({ params }: Props) => {
     const { gifs } = useContext<ContextType>(GifsContext)
-    const { gifHistory, toPreviousGif, toNextGif } = useContext<HistoryContextType>(HistoryContext)
+    const { state, toPreviousGif, toNextGif } = useContext<HistoryContextType>(HistoryContext)
     const [gif, setGif] = useState<Gif>()
     const [showAllTags, setShowAllTags] = useState(false)
     const [fakeViewCount] = useState(Math.ceil(Math.random() * 2000000))
@@ -76,7 +76,7 @@ const Detail = ({ params }: Props) => {
                     </div>
                     <div className="gifNavigation">
                         <div className="navigator">
-                            <div className={`previous ${gifHistory.prevGifs.length ? 'active' : ''}`}
+                            <div className={`previous ${state.gifHistory.prevGifs.length ? 'active' : ''}`}
                                 onClick={() => toPreviousGif()}
                             >
                                 {'<'}

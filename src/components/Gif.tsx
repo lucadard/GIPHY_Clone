@@ -22,7 +22,7 @@ type Props = {
 const Gif = (props: Props) => {
     const { handleSetNewGif } = useContext<HistoryContextType>(HistoryContext)
     const { handleCopyToClipboard } = useContext<ContextType>(GifsContext)
-    const [styles, setStyles] = useState<any>({
+    const [styles] = useState<any>({
         backgroundImage: `url(${props.url})`,
         backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
         gridRowEnd: props.type === 'grid' ? `span ${calculateSpan()}` : '',
