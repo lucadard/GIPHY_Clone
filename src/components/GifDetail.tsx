@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 
+import { Helmet } from 'react-helmet'
+
 import GifsContext from '../context/GifsContext'
 import HistoryContext from '../context/HistoryContext'
 import { getGifById, getRelatedGifs } from '../services/getGifs'
@@ -71,6 +73,9 @@ const Detail = ({ params }: Props) => {
             <div style={{ display: 'flex', flexDirection: 'column', width: '774px', gap: '1rem' }}>
                 <div className='gifInfo'>
                     <div className="gifPreview">
+                        <Helmet>
+                            <title>{gif?.description}</title>
+                        </Helmet>
                         <p className='description'>{gif?.description}</p>
                         <img className='image' src={gif?.url} alt={gif?.description} key={gif?.description} />
                     </div>

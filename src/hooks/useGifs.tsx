@@ -35,7 +35,6 @@ export const useGifs = () => {
 
     const clearGifs = () => {
         setGifs([])
-        setLastQuery('')
     }
 
     return {

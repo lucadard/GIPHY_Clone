@@ -13,11 +13,15 @@ import GifCategories from './components/GifCategories'
 import { GifsContextProvider } from './context/GifsContext'
 import { CategoriesContextProvider } from './context/CategoriesContext'
 import { HistoryContextProvider } from './context/HistoryContext'
+import { Helmet } from 'react-helmet'
 
 
 function App() {
   return (
     <div className="App">
+      <Helmet>
+        <title>GIPHY - Be Animated</title>
+      </Helmet>
       <GifsContextProvider>
         <NavBar />
         <Message />

@@ -6,6 +6,7 @@ import GifsContext from '../context/GifsContext'
 import { useGifs } from '../hooks/useGifs'
 import useObserver from '../hooks/useObserver'
 import { ContextType } from '../types'
+import { Helmet } from 'react-helmet'
 
 type Props = {
     params: {
@@ -59,6 +60,10 @@ const GifList = ({ params, type = 'search' }: Props) => {
 
     return (
         <div className='searchResults'>
+            {params.searchTerm &&
+                <Helmet>
+                    <title>{params.searchTerm.charAt(0).toUpperCase() + params.searchTerm.slice(1)} GIFs</title>
+                </Helmet>}
             <div className='related'>
                 {type === 'search'
                     ? <h2>{decodeURI(params.searchTerm)}
