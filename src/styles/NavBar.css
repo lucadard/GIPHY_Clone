@@ -218,7 +218,7 @@
   z-index: 6;
 }
 
-.navbar.scroll .logo {
+/* .navbar.scroll .logo {
   grid-row: 2;
   grid-column: 1;
 }
@@ -226,7 +226,7 @@
 .navbar.scroll .searchbar {
   grid-row: 2;
   grid-column: 2 / 5;
-}
+} */
 
 /* .navbar.scroll form {
   animation-name: searchBarAnimation;

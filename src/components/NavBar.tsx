@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'wouter'
+import { motion } from 'framer-motion'
 
 import getCategories from '../services/getCategories'
 import SearchBar from './SearchBar'
@@ -7,24 +8,26 @@ import { useGifs } from '../hooks/useGifs'
 
 import '../styles/NavBar.css'
 
-type Props = {}
+const logoVariants = {
+    default: { y: 0 },
+    scroll: { y: 55 },
+};
 
-const NavBar = (props: Props) => {
+const inputVariants = {
+    default: { marginLeft: "auto", width: "100%" },
+    scroll: { marginLeft: "auto", width: "80%" },
+};
+
+const NavBar = () => {
     const { clearGifs } = useGifs()
-
     const [categories, setCategories] = useState<any>({})
     const [showDropdown, setShowDropdown] = useState(false)
     const [navScroll, setNavScroll] = useState(false)
-    const searchBarRef = useRef(null)
 
     const handleShowCategories = () => {
         setShowDropdown(!showDropdown)
         if (Object.keys(categories).length === 0)
             getCategories().then(setCategories)
-    }
-
-    const handleHideCategories = () => {
-        setShowDropdown(false)
     }
 
     const onScroll = () => {
@@ -40,11 +43,20 @@ const NavBar = (props: Props) => {
 
     return (
         <div className={`navbar ${navScroll ? 'scroll' : ''}`}>
-            <div className='logo' onClick={clearGifs}>
+            <motion.div className='logo'
+                onClick={clearGifs}
+                variants={logoVariants}
+                animate={navScroll ? "scroll" : "default"}
+                transition={{
+                    duration: navScroll ? 0.5 : 0.2,
+                    delay: navScroll ? 0.3 : 0,
+                    ease: "easeOut"
+                }}
+            >
                 <Link to='/'>
                     <span>GIPHY</span>
                 </Link>
-            </div>
+            </motion.div>
             <div className='categories'>
                 <ul>
                     <li><span>Reactions</span></li>
@@ -87,9 +99,17 @@ const NavBar = (props: Props) => {
                 </div>
                 <div className='footer'></div>
             </div>
-            <div className='searchbar' ref={searchBarRef} >
+            <motion.div className='searchbar'
+                variants={inputVariants}
+                animate={navScroll ? "scroll" : "default"}
+                transition={{
+                    duration: navScroll ? 0.5 : 0.2,
+                    delay: navScroll ? 0 : 0.1,
+                    type: "spring",
+                    bounce: 0
+                }}>
                 <SearchBar />
-            </div>
+            </motion.div>
         </div>
     )
 }
