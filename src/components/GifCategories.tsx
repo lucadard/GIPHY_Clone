@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-
-import getCategories from '../services/getCategories'
-import CategoryList from '../components/CategoryList'
-import { CategoriesContextType } from '../types'
-import CategoriesContext from '../context/CategoriesContext'
 import { Helmet } from 'react-helmet'
 import { useLocation } from 'wouter'
+
+import { CategoriesContextType } from '../types'
+import getCategories from '../services/getCategories'
+import CategoryList from '../components/CategoryList'
+import CategoriesContext from '../context/CategoriesContext'
 
 type Props = {}
 
@@ -22,7 +22,7 @@ const GifCategories = ({ }: Props) => {
     return (
         <div className='gifCategories'>
             <Helmet>
-                <title>GIFs Categories - {currentCategory[0].toUpperCase() + currentCategory.substring(1)}</title>
+                <title>GIFs Categories - {currentCategory[0].toUpperCase() + decodeURI(currentCategory.substring(1))}</title>
             </Helmet>
             <div className='categoriesColumn'>
                 <h5>CATEGORIES</h5>

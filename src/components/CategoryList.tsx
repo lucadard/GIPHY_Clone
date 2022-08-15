@@ -1,16 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useLocation } from 'wouter'
 
 import { CategoriesContextType, Category as CategoryType } from '../types'
 import CategoriesContext from '../context/CategoriesContext'
-import { useLocation } from 'wouter'
 import Category from './Category'
 
-type Props = {}
-
-const CategoryList = ({ }: Props) => {
+const CategoryList = () => {
     const { categories } = useContext<CategoriesContextType>(CategoriesContext)
     const [subcategories, setSubcategories] = useState<{ name: string, data: Array<CategoryType> | undefined }>()
-    const [location, setLocation] = useLocation()
+    const [location] = useLocation()
 
     useEffect(() => {
         const sublocation = decodeURI(location.substring(location.indexOf('/', 2) + 1))
