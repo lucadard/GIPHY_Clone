@@ -23,8 +23,10 @@
 }
 
 .logo {
+  transform: translateY(5px);
   display: flex;
   cursor: pointer;
+  transition: transform 200ms ease-in-out;
 }
 
 .logo > span {
@@ -116,6 +118,9 @@
 
 .navbar .searchbar {
   grid-column: 1 / 5;
+  width: 100%;
+  margin-left: auto;
+  transition: width 200ms ease-in;
 }
 
 .navbar form {
@@ -218,41 +223,16 @@
   z-index: 6;
 }
 
-.navbar.scroll .logo {
-  grid-row: 2;
-  grid-column: 1;
+.navbar.scroll > .logo {
+  /* grid-row: 2;
+  grid-column: 1; */
+  transform: translateY(60px);
+  transition: transform 500ms ease-out 300ms;
 }
 
-.navbar.scroll .searchbar {
-  grid-row: 2;
-  grid-column: 2 / 5;
-}
-
-/* .navbar.scroll form {
-  animation-name: searchBarAnimation;
-  animation-duration: 500ms;
-  animation-delay: 100ms;
-  animation-fill-mode: forwards;
-  width: 1040px;
-  margin-left: 0;
-} */
-
-@keyframes logoAnimation {
-  from {
-    transform: translateY(-200%);
-  }
-  to {
-    transform: translateY(-0.8rem);
-  }
-}
-
-@keyframes searchBarAnimation {
-  from {
-    width: 1040px;
-    margin-left: 0;
-  }
-  to {
-    width: 820px;
-    margin-left: calc(-820px + 1040px);
-  }
+.navbar.scroll > .searchbar {
+  /* grid-row: 2;
+  grid-column: 2 / 5; */
+  width: 80%;
+  transition: width 500ms ease-out;
 }

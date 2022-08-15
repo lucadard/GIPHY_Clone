@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
 import GifsContext from '../context/GifsContext'
 
-type Props = {}
-
-const SearchBar = (props: Props) => {
+const SearchBar = () => {
     const [input, setInput] = useState('')
     const { lastQuery } = useContext(GifsContext)
     const [location, setLocation] = useLocation()
@@ -17,7 +15,8 @@ const SearchBar = (props: Props) => {
         e.preventDefault()
         if (!input) return
         // setInput('')
-        setLocation(`/search/${input}`);
+        window.scrollTo(0, 0)
+        setLocation(`/search/${input}`)
     }
 
     useEffect(() => {
