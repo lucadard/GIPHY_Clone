@@ -1,23 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'wouter'
-import { motion } from 'framer-motion'
 
 import getCategories from '../services/getCategories'
 import SearchBar from './SearchBar'
 import { useGifs } from '../hooks/useGifs'
 
 import '../styles/NavBar.css'
-
-const logoVariants = {
-    default: { y: 0 },
-    scroll: { y: 55 },
-};
-
-
-const inputVariants = {
-    default: { marginLeft: "auto", width: "100%" },
-    scroll: { marginLeft: "auto", width: "80%" },
-};
 
 const NavBar = () => {
     const { clearGifs } = useGifs()
@@ -44,20 +32,11 @@ const NavBar = () => {
 
     return (
         <div className={`navbar ${navScroll ? 'scroll' : ''}`}>
-            <motion.div className='logo'
-                onClick={clearGifs}
-                variants={logoVariants}
-                animate={navScroll ? "scroll" : "default"}
-                transition={{
-                    duration: navScroll ? 0.5 : 0.2,
-                    delay: navScroll ? 0.3 : 0,
-                    ease: "easeOut"
-                }}
-            >
+            <div className='logo' onClick={clearGifs}>
                 <Link to='/'>
                     <span>GIPHY</span>
                 </Link>
-            </motion.div>
+            </div>
             <div className='categories'>
                 <ul>
                     <li><span>Reactions</span></li>
@@ -100,17 +79,9 @@ const NavBar = () => {
                 </div>
                 <div className='footer'></div>
             </div>
-            <motion.div className='searchbar'
-                variants={inputVariants}
-                animate={navScroll ? "scroll" : "default"}
-                transition={{
-                    duration: navScroll ? 0.5 : 0.2,
-                    delay: navScroll ? 0 : 0.1,
-                    type: "spring",
-                    bounce: 0
-                }}>
+            <div className='searchbar'>
                 <SearchBar />
-            </motion.div>
+            </div>
         </div>
     )
 }

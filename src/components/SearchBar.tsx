@@ -16,11 +16,7 @@ const SearchBar = () => {
         if (!input) return
         // setInput('')
         window.scrollTo(0, 0)
-<<<<<<< HEAD
-        setLocation(`/search/${input}`);
-=======
         setLocation(`/search/${input}`)
->>>>>>> animation-whithout-framer
     }
 
     useEffect(() => {
