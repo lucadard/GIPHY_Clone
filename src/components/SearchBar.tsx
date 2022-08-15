@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
 import GifsContext from '../context/GifsContext'
 
-type Props = {}
-
-const SearchBar = (props: Props) => {
+const SearchBar = () => {
     const [input, setInput] = useState('')
     const { lastQuery } = useContext(GifsContext)
     const [location, setLocation] = useLocation()
@@ -18,7 +16,11 @@ const SearchBar = (props: Props) => {
         if (!input) return
         // setInput('')
         window.scrollTo(0, 0)
+<<<<<<< HEAD
         setLocation(`/search/${input}`);
+=======
+        setLocation(`/search/${input}`)
+>>>>>>> animation-whithout-framer
     }
 
     useEffect(() => {
