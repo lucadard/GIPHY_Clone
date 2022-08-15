@@ -17,6 +17,7 @@ const SearchBar = (props: Props) => {
         e.preventDefault()
         if (!input) return
         // setInput('')
+        window.scrollTo(0, 0)
         setLocation(`/search/${input}`);
     }
 

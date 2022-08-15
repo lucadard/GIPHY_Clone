@@ -13,6 +13,7 @@ const logoVariants = {
     scroll: { y: 55 },
 };
 
+
 const inputVariants = {
     default: { marginLeft: "auto", width: "100%" },
     scroll: { marginLeft: "auto", width: "80%" },
